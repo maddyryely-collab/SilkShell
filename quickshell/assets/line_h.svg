@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1935"
+   height="6"
+   viewBox="0 0 511.96876 1.5874999"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.3 (0d15f75, 2025-12-25)"
+   sodipodi:docname="line_h.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     inkscape:zoom="45.254834"
+     inkscape:cx="6.0214562"
+     inkscape:cy="3.6239223"
+     inkscape:window-width="1310"
+     inkscape:window-height="697"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showgrid="false" />
+  <defs
+     id="defs1">
+    <linearGradient
+       id="linearGradient1"
+       inkscape:collect="always">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="0"
+         id="stop1" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.30787319"
+         id="stop3" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0.75"
+         id="stop4" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="1"
+         id="stop2" />
+    </linearGradient>
+    <inkscape:path-effect
+       effect="mirror_symmetry"
+       start_point="256,14.312284"
+       end_point="256,15.687952"
+       center_point="256,15.000118"
+       id="path-effect7"
+       is_visible="true"
+       lpeversion="1.2"
+       lpesatellites=""
+       mode="free"
+       discard_orig_path="false"
+       fuse_paths="true"
+       oposite_fuse="false"
+       split_items="false"
+       split_open="false"
+       link_styles="false" />
+    <inkscape:path-effect
+       effect="powerstroke"
+       message=""
+       id="path-effect5"
+       is_visible="true"
+       lpeversion="1.3"
+       scale_width="1.8382353"
+       interpolator_type="CentripetalCatmullRom"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       end_linecap_type="zerowidth"
+       offset_points="8.0172636,0.073554166"
+       linejoin_type="round"
+       miter_limit="4"
+       not_jump="false"
+       sort_points="true" />
+    <inkscape:path-effect
+       effect="powerstroke"
+       message=""
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1.3"
+       scale_width="1"
+       interpolator_type="CentripetalCatmullRom"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       end_linecap_type="zerowidth"
+       offset_points="7,0.047095835"
+       linejoin_type="round"
+       miter_limit="4"
+       not_jump="false"
+       sort_points="true" />
+    <inkscape:path-effect
+       effect="taper_stroke"
+       start_shape="center | center"
+       end_shape="center | center"
+       id="path-effect2"
+       is_visible="true"
+       lpeversion="1"
+       stroke_width="1.18"
+       subpath="1"
+       attach_start="0"
+       end_offset="0.13531612"
+       start_smoothing="0.5"
+       end_smoothing="1"
+       jointype="extrapolated"
+       miter_limit="100" />
+    <inkscape:path-effect
+       effect="bend_path"
+       id="path-effect393"
+       is_visible="true"
+       lpeversion="1"
+       bendpath="M 7.9128144,2.3818417 C 10.957243,2.6856328 13.116512,5.5652308 12.798204,8.5615817 12.442992,11.905299 9.2723843,14.271917 5.9765073,13.90421 2.3334883,13.497773 -0.24061269,10.035941 0.17663932,6.4405568 0.63415632,2.4982277 4.3873764,-0.28346088 8.2822494,0.18345072 12.523897,0.69193272 15.513255,4.7366669 14.996594,8.9310157 14.697063,11.362679 13.27344,13.565199 11.204209,14.869468"
+       prop_scale="-0.19120074"
+       scale_y_rel="false"
+       vertical="false"
+       hide_knot="false" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect392"
+       is_visible="true"
+       lpeversion="1"
+       pattern="m 42.760285,20.434766 c -1.294803,3.162069 -5.058989,4.574866 -8.171757,3.281663 -3.43533,-1.427212 -4.966453,-5.52887 -3.54235,-8.915544 1.408787,-3.350253 5.224316,-5.0895442 8.699271,-4.136945"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="offset"
+       id="path-effect391"
+       is_visible="true"
+       lpeversion="1.3"
+       linejoin_type="miter"
+       unit="mm"
+       offset="-0.7"
+       miter_limit="4.8"
+       attempt_force_join="false"
+       update_on_knot_move="true" />
+    <inkscape:path-effect
+       effect="taper_stroke"
+       start_shape="center | center"
+       end_shape="center | center"
+       id="path-effect389"
+       is_visible="true"
+       lpeversion="1"
+       stroke_width="5.2555399"
+       subpath="1"
+       attach_start="2.0465136"
+       end_offset="0"
+       start_smoothing="0.5"
+       end_smoothing="0.5"
+       jointype="bevel"
+       miter_limit="100" />
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1"
+       nodesatellites_param="IC,0,0,1,0,251.32007,0,1 @ IC,0,0,1,0,251.32007,0,1 @ IC,0,0,1,0,251.32007,0,1 @ IC,0,0,1,0,251.32007,0,1"
+       is_visible="true"
+       lpeversion="1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+    <inkscape:path-effect
+       effect="taper_stroke"
+       start_shape="center | center"
+       end_shape="center | center"
+       id="path-effect2-7"
+       is_visible="true"
+       lpeversion="1"
+       stroke_width="1.376"
+       subpath="1"
+       attach_start="0.15478281"
+       end_offset="0.14320268"
+       start_smoothing="0.5"
+       end_smoothing="1"
+       jointype="extrapolated"
+       miter_limit="100.5" />
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="bsplinespiro"
+       autoreverse="false"
+       close="false"
+       join="false"
+       linkedpaths="#path1-5,0,1"
+       id="path-effect4"
+       is_visible="true"
+       lpeversion="0" />
+    <inkscape:path-effect
+       effect="fill_between_many"
+       method="bsplinespiro"
+       autoreverse="false"
+       close="false"
+       join="false"
+       linkedpaths="#path1-5,0,1"
+       id="path-effect6"
+       is_visible="true"
+       lpeversion="0" />
+    <inkscape:path-effect
+       effect="taper_stroke"
+       start_shape="center | center"
+       end_shape="center | center"
+       id="path-effect2-75"
+       is_visible="true"
+       lpeversion="1"
+       stroke_width="0.98"
+       subpath="1"
+       attach_start="0"
+       end_offset="0.09754872"
+       start_smoothing="0.5"
+       end_smoothing="1"
+       jointype="extrapolated"
+       miter_limit="100" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1"
+       id="linearGradient2"
+       x1="0"
+       y1="15"
+       x2="512"
+       y2="15"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.99993895,0,0,0.07417564,-7.3432379e-6,-0.3188819)" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:url(#linearGradient2);stroke-width:0.139957"
+       id="rect1"
+       width="511.96875"
+       height="1.5874361"
+       x="-8.6736174e-19"
+       y="3.1998272e-05"
+       ry="0.7937181"
+       rx="160.77744" />
+  </g>
+</svg>
