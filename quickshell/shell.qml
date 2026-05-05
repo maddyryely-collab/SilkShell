@@ -8,7 +8,6 @@ import QtQuick.Layouts
 import QtQuick.Effects
 import "./modules/corners/"
 import "./modules/bar/"
-
 import "./modules/apps/"
 import "./modules/notifications/"
 
@@ -33,7 +32,8 @@ Scope{
 
     // sizing/padding
     readonly property real appLauncherW: 550
-    readonly property real appLauncherH: 250
+    readonly property real appLauncherH: 400
+    readonly property real iconSize: 100
     readonly property real bardecosize: 50
     readonly property real barMargin: 7
     readonly property real barHeight: 40
@@ -51,6 +51,10 @@ Scope{
     Loader {
         active: true
         sourceComponent: Bar{}
+    }
+    Loader {
+        active: true
+        sourceComponent: Notify{}
     }
 
     

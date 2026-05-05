@@ -14,24 +14,25 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Controls.Material
 
 
-PanelWindow{
-    readonly property int rowLength: Math.floor((appLauncherW - 50) / iconSize)
-    WlrLayershell.layer: WlrLayer.Overlay
-	WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
-    color: "transparent"
-    implicitHeight: appLauncherH + 40
-    implicitWidth: appLauncherW + 40
+FloatingWindow {
 
     ClippingRectangle {
         radius: 18
         id: launcher
-        color: Qt.rgba(0.06, 0.06, 0.06, 0.33)
-        width: appLauncherW - 50
-        height: appLauncherH - 50
+        color: Qt.rgba(0, 0, 0, 0.8)
+        width: parent.width - 50
+        height: parent.height - 50
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
+
+
+
+
+
+
     property string query: ""
+
     function launchSelected() {
         if (grid.currentItem && grid.currentItem.modelData) {
             grid.currentItem.modelData.execute();
@@ -63,11 +64,13 @@ PanelWindow{
             }
 
             TextField {
+                
                 id: input
                 Layout.fillWidth: true
                 font.pixelSize: 18
                 color: "white"
                 focus: true
+
                 padding: 15
 
                 onTextChanged: {
@@ -75,33 +78,25 @@ PanelWindow{
                     // reset selection to first item of the filtered grid
                     grid.currentIndex = filtered.values.length > 0 ? 0 : -1;
                 }
+
                 background: Rectangle {
                     border.width: 0
                     color: "transparent"
                 }
 
+                // Quit
                 Keys.onEscapePressed: lazyLoader.active = !lazyLoader.active
+                Keys.onLeftPressed:  { if (currentIndex > 0) currentIndex-- }
+                Keys.onRightPressed: { if (currentIndex < count - 1) currentIndex++ }
+                
                 Keys.onPressed: event => {
+                    
                     const ctrl = event.modifiers & Qt.ControlModifier;
-                    if (event.key == Qt.Key_Left) {
+                    
+                 
+                    if ([Qt.Key_Return, Qt.Key_Enter].includes(event.key)) {
                         event.accepted = true;
-                        if (grid.currentIndex > 0)
-                            grid.currentIndex--;
-                    } else if (event.key == Qt.Key_Right) {
-                        event.accepted = true;
-                        if (grid.currentIndex < grid.count - 1)
-                            grid.currentIndex++;
-                    } else if (event.key == Qt.Key_Up) {
-                        event.accepted = true;
-                        if (grid.currentIndex > rowLength - 1)
-                            grid.currentIndex = Math.min(grid.currentIndex - rowLength);
-                    } else if (event.key == Qt.Key_Down) {
-                        event.accepted = true;
-                        if (grid.currentIndex < grid.count - rowLength)
-                            grid.currentIndex = Math.min(grid.currentIndex + rowLength);
-                    } else if ([Qt.Key_Return, Qt.Key_Enter].includes(event.key)) {
-                        event.accepted = true;
-                        launcher.launchSelected();
+                        Quickshell.execDetached(launcher.launchSelected());
                     } else if (event.key == Qt.Key_C && ctrl) {
                         event.accepted = true;
                         lazyLoader.active = !lazyLoader.active
@@ -116,6 +111,7 @@ PanelWindow{
             values: {
                 const allEntries = [...DesktopEntries.applications.values];
                 const q = launcher.query.trim();
+
                 if (q === "") {
                     return allEntries.sort((a, b) => a.name.localeCompare(b.name));;
                 } else {
@@ -125,11 +121,10 @@ PanelWindow{
         }
 
         GridView {
-            
             id: grid
-            cellWidth: iconSize; cellHeight: iconSize
+            cellWidth: 100; cellHeight: 100
+            Layout.fillWidth: true
             Layout.fillHeight: true
-            width: appLauncherW - 50
             clip: true
             model: filtered.values
             currentIndex: filtered.values.length > 0 ? 0 : -1
@@ -142,8 +137,10 @@ PanelWindow{
             highlightMoveDuration: 100
 
             highlight: Item {
+                
                 opacity: 0.45
                 width: view.cellWidth; height: view.cellHeight
+                
                 RadialGradient {
                 anchors.fill: parent
                 gradient: Gradient {
@@ -151,6 +148,7 @@ PanelWindow{
                     GradientStop { position: 0.5; color: '#00ffffff' }
                     }   
                 }
+
                     Image {
                     width: 100
                     height: 100
@@ -180,64 +178,83 @@ PanelWindow{
                 required property int index
                 width: GridView.view.cellWidth
                 height: GridView.view.cellHeight
+                
+                
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: grid.currentIndex = entry.index
                     onDoubleClicked: launcher.launchSelected()
                 }
-                IconImage {
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: Quickshell.iconPath(modelData.icon, true)
-                    width: 50
-                    height: 50
+
+
+
+                    IconImage {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        anchors.verticalCenter: parent.verticalCenter
+                        source: Quickshell.iconPath(modelData.icon, true)
+                        width: 50
+                        height: 50
                     }
-                }
+                
+            }
+
+            // Enter also works while gridView has focus
             Keys.onReturnPressed: launcher.launchSelected()
-            }
         }
-    }     
-    Image {
-        anchors.topMargin: 20
-        anchors.leftMargin: 20
-        width: 250
-        height: 250
-        id: topleft
-        anchors.left: parent.left
-        anchors.top: parent.top
-        source: Quickshell.shellPath("assets/topleft-appmenu.svg")
-        smooth: true
-        mipmap: true
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            colorization: 1.0
-            colorizationColor: "white"
-            brightness: 1.0
-            shadowEnabled: true
-            shadowColor: midlight1
-            }
-    }
-    Image {
-        width: 140
-        height: 140
-        anchors.bottomMargin: 20
-        anchors.rightMargin: 20
-        id: bottomright
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        source: Quickshell.shellPath("assets/bottomright-appmenu.svg")
-        smooth: true
-        mipmap: true
-        layer.enabled: true
-        layer.effect: MultiEffect {
-            colorization: 1.0
-            colorizationColor: "white"
-            brightness: 1.0
-            shadowEnabled: true
-            shadowColor: midlight1
-            }
     }
 
+
+        }
+
+        
+        
+        Image {
+            anchors.topMargin: 20
+            anchors.leftMargin: 20
+            width: 250
+            height: 250
+            id: topleft
+            anchors.left: parent.left
+            anchors.top: parent.top
+            source: Quickshell.shellPath("assets/topleft-appmenu.svg")
+            smooth: true
+            mipmap: true
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                colorization: 1.0
+                colorizationColor: "white"
+                brightness: 1.0
+                shadowEnabled: true
+                shadowColor: midlight1
+                }
+        }
+        Image {
+            width: 140
+            height: 140
+            anchors.bottomMargin: 20
+            anchors.rightMargin: 20
+            id: bottomright
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            source: Quickshell.shellPath("assets/bottomright-appmenu.svg")
+            smooth: true
+            mipmap: true
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                colorization: 1.0
+                colorizationColor: "white"
+                brightness: 1.0
+                shadowEnabled: true
+                shadowColor: midlight1
+                }
+        }
+
+
+
+
 }
-    
+
+
+
+
