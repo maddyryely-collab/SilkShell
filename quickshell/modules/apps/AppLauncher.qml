@@ -1,3 +1,4 @@
+//@ pragma IconTheme <theme-name>
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -11,7 +12,7 @@ import QtQuick.Shapes
 import QtQuick.Effects
 import QtQuick.VectorImage
 import Qt5Compat.GraphicalEffects
-import QtQuick.Controls.Material
+
 
 
 PanelWindow{
@@ -68,7 +69,9 @@ PanelWindow{
                 font.pixelSize: 18
                 color: "white"
                 focus: true
+                
                 padding: 15
+                
 
                 onTextChanged: {
                     launcher.query = text;
@@ -82,7 +85,6 @@ PanelWindow{
 
                 Keys.onEscapePressed: lazyLoader.active = !lazyLoader.active
                 Keys.onPressed: event => {
-                    const ctrl = event.modifiers & Qt.ControlModifier;
                     if (event.key == Qt.Key_Left) {
                         event.accepted = true;
                         if (grid.currentIndex > 0)
@@ -113,14 +115,19 @@ PanelWindow{
         // Filtered model: only items matching the query
         ScriptModel {
             id: filtered
+            
+
+            
             values: {
+                
                 const allEntries = [...DesktopEntries.applications.values];
                 const q = launcher.query.trim();
                 if (q === "") {
-                    return allEntries.sort((a, b) => a.name.localeCompare(b.name));;
+                    return allEntries.sort((a, b) => a.name.localeCompare(b.name));
                 } else {
                     return allEntries.filter(d => d.name && d.name.toLowerCase().includes(q));
                 }
+                
             }
         }
 

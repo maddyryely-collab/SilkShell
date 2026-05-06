@@ -52,29 +52,33 @@ Scope{
         active: true
         sourceComponent: Bar{}
     }
-    Loader {
-        active: true
-        sourceComponent: Notify{}
-    }
+//    Loader {
+//        active: true
+//        sourceComponent: Notify{}
+//    }
+//    Loader {
+//        active: true
+//        sourceComponent: Testing{}
+//    }
 
     
 
-    Scope {
-    
-  GlobalShortcut {
-    name: "appLauncher"
-    onPressed: lazyLoader.active = !lazyLoader.active
-  }
 
-LazyLoader {
-    Loader {
-        active: true
-        sourceComponent: AppLauncher{}
+    
+    GlobalShortcut {
+        name: "appLauncher"
+        onPressed: lazyLoader.active = !lazyLoader.active
     }
 
-    id: lazyLoader
-    active: false
-}}
+    LazyLoader {
+        Loader {
+            active: true
+            sourceComponent: AppLauncher{}
+            }
+        id: lazyLoader
+        active: false
+        }
+    
 
     
 

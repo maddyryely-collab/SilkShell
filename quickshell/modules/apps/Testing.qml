@@ -15,246 +15,29 @@ import QtQuick.Controls.Material
 
 
 FloatingWindow {
-
-    ClippingRectangle {
-        radius: 18
-        id: launcher
-        color: Qt.rgba(0, 0, 0, 0.8)
-        width: parent.width - 50
-        height: parent.height - 50
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-
-
-
-
-
-
-
-    property string query: ""
-
-    function launchSelected() {
-        if (grid.currentItem && grid.currentItem.modelData) {
-            grid.currentItem.modelData.execute();
-            lazyLoader.active = !lazyLoader.active
-        }
+    id: appContainer
+    
+    // Component to handle database operations
+    GridView{
+        Component.onCompleted: {
+        loadApps()
     }
 
-    ColumnLayout {
-        anchors.fill: parent
-        spacing: 8
-
-        RowLayout {
-            Image {
-                Layout.leftMargin: 10
-                source: Quickshell.shellPath("assets/icon.svg")
-                Layout.preferredWidth: 25
-                Layout.preferredHeight: 25
-                smooth: true
-                mipmap: true
-                layer.enabled: true
-                layer.effect: MultiEffect {
-                colorization: 1.0
-                colorizationColor: "white"
-                brightness: 1.0
-                shadowEnabled: true
-                shadowColor: "white"
-                blurEnabled: true
+    function loadApps() {
+        // [SOLVED] Qt 5.14 QML Quick local storage methods for SQL
+        var db = LocalStorage.openDatabaseSync("AppDatabase", "1.0", "App Storage", 1000000);
+        db.transaction(function(tx) {
+            // Create table if it doesn't exist
+            tx.executeSql('CREATE TABLE IF NOT EXISTS apps(name TEXT, iconPath TEXT)');
+            
+            // Query to select only apps that have an icon path
+            var rs = tx.executeSql('SELECT * FROM apps WHERE iconPath IS NOT NULL AND iconPath != ""');
+            
+            for (var i = 0; i < rs.rows.length; i++) {
+                console.log("App with icon: " + rs.rows.item(i).name);
+                // Populate your list model here
             }
-            }
-
-            TextField {
-                
-                id: input
-                Layout.fillWidth: true
-                font.pixelSize: 18
-                color: "white"
-                focus: true
-
-                padding: 15
-
-                onTextChanged: {
-                    launcher.query = text;
-                    // reset selection to first item of the filtered grid
-                    grid.currentIndex = filtered.values.length > 0 ? 0 : -1;
-                }
-
-                background: Rectangle {
-                    border.width: 0
-                    color: "transparent"
-                }
-
-                // Quit
-                Keys.onEscapePressed: lazyLoader.active = !lazyLoader.active
-                Keys.onLeftPressed:  { if (currentIndex > 0) currentIndex-- }
-                Keys.onRightPressed: { if (currentIndex < count - 1) currentIndex++ }
-                
-                Keys.onPressed: event => {
-                    
-                    const ctrl = event.modifiers & Qt.ControlModifier;
-                    
-                 
-                    if ([Qt.Key_Return, Qt.Key_Enter].includes(event.key)) {
-                        event.accepted = true;
-                        Quickshell.execDetached(launcher.launchSelected());
-                    } else if (event.key == Qt.Key_C && ctrl) {
-                        event.accepted = true;
-                        lazyLoader.active = !lazyLoader.active
-                    }
-                }
-            }
-        }
-
-        // Filtered model: only items matching the query
-        ScriptModel {
-            id: filtered
-            values: {
-                const allEntries = [...DesktopEntries.applications.values];
-                const q = launcher.query.trim();
-
-                if (q === "") {
-                    return allEntries.sort((a, b) => a.name.localeCompare(b.name));;
-                } else {
-                    return allEntries.filter(d => d.name && d.name.toLowerCase().includes(q));
-                }
-            }
-        }
-
-        GridView {
-            id: grid
-            cellWidth: 100; cellHeight: 100
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            clip: true
-            model: filtered.values
-            currentIndex: filtered.values.length > 0 ? 0 : -1
-            keyNavigationEnabled: true
-            keyNavigationWraps: true
-            preferredHighlightBegin: 0
-            preferredHighlightEnd: height
-            highlightFollowsCurrentItem: true
-            highlightRangeMode: GridView.ApplyRange
-            highlightMoveDuration: 100
-
-            highlight: Item {
-                
-                opacity: 0.45
-                width: view.cellWidth; height: view.cellHeight
-                
-                RadialGradient {
-                anchors.fill: parent
-                gradient: Gradient {
-                    GradientStop { position: 0.0; color: '#81ffffff' }
-                    GradientStop { position: 0.5; color: '#00ffffff' }
-                    }   
-                }
-
-                    Image {
-                    width: 100
-                    height: 100
-                    anchors.bottomMargin: 20
-                    anchors.rightMargin: 20
-                    id: bottomright
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    source: Quickshell.shellPath("assets/selector_icon.svg")
-                    smooth: true
-                    mipmap: true
-                    layer.enabled: true
-                    layer.effect: MultiEffect {
-                    colorization: 1.0
-                    colorizationColor: "white"
-                    brightness: 1.0
-                    shadowEnabled: true
-                    shadowColor: white
-                    }
-                }
-
-            }
-
-            delegate: Item {
-                id: entry
-                required property var modelData
-                required property int index
-                width: GridView.view.cellWidth
-                height: GridView.view.cellHeight
-                
-                
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: grid.currentIndex = entry.index
-                    onDoubleClicked: launcher.launchSelected()
-                }
-
-
-
-                    IconImage {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        anchors.verticalCenter: parent.verticalCenter
-                        source: Quickshell.iconPath(modelData.icon, true)
-                        width: 50
-                        height: 50
-                    }
-                
-            }
-
-            // Enter also works while gridView has focus
-            Keys.onReturnPressed: launcher.launchSelected()
-        }
+        });
     }
-
-
-        }
-
-        
-        
-        Image {
-            anchors.topMargin: 20
-            anchors.leftMargin: 20
-            width: 250
-            height: 250
-            id: topleft
-            anchors.left: parent.left
-            anchors.top: parent.top
-            source: Quickshell.shellPath("assets/topleft-appmenu.svg")
-            smooth: true
-            mipmap: true
-            layer.enabled: true
-            layer.effect: MultiEffect {
-                colorization: 1.0
-                colorizationColor: "white"
-                brightness: 1.0
-                shadowEnabled: true
-                shadowColor: midlight1
-                }
-        }
-        Image {
-            width: 140
-            height: 140
-            anchors.bottomMargin: 20
-            anchors.rightMargin: 20
-            id: bottomright
-            anchors.right: parent.right
-            anchors.bottom: parent.bottom
-            source: Quickshell.shellPath("assets/bottomright-appmenu.svg")
-            smooth: true
-            mipmap: true
-            layer.enabled: true
-            layer.effect: MultiEffect {
-                colorization: 1.0
-                colorizationColor: "white"
-                brightness: 1.0
-                shadowEnabled: true
-                shadowColor: midlight1
-                }
-        }
-
-
-
-
 }
-
-
-
-
+}
