@@ -24,6 +24,8 @@ PanelWindow{
     implicitWidth: appLauncherW + 40
 
     ClippingRectangle {
+        border.color: '#63ffffff'
+        border.width: 5
         radius: 18
         id: launcher
         color: Qt.rgba(0.06, 0.06, 0.06, 0.33)

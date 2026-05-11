@@ -166,7 +166,7 @@ Item {
             }
         id: bottomSpacer
         color: "transparent"
-        implicitHeight: 15
+        implicitHeight: 10
         anchors{left: parent.left; right: parent.right; bottom:parent.bottom}
 
        Image {
